@@ -1,6 +1,10 @@
-<p align="center"><h2>Python-download-YT-MP3</h2>
+<h2 align="center">Python-download-YT-MP3</h2>
 <br>
-<a href="#"><img src="https://img.shields.io/github/languages/code-size/watchakorn-18k/Python-download-YT-MP3"/></a>
+
+<p align="center">
+ <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/master/logo_title.png"/></a> 
+  <br>
+<a href="#" align="center"><img src="https://img.shields.io/github/languages/code-size/watchakorn-18k/Python-download-YT-MP3"/></a>
 </p>
 
 ## Python-download-YT-MP3
