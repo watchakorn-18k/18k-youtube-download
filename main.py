@@ -14,6 +14,9 @@ from kivy.core.window import Window
 from kivy.animation import Animation
 import time
 
+
+
+
 class gridlayout_Screen(GridLayout):
     check_input = BooleanProperty(False)
     my_text = StringProperty("")
@@ -58,8 +61,10 @@ class gridlayout_Screen(GridLayout):
                         str1 += ele
                     return str1
                 self.my_text = f"{listToString(re.split(' ',self.my_text[0:30]))}..... - {int(video_duration)} นาที"
+
                 if self.my_text != "":
                     ydl.download([link])
+                
                     
         except :
             print("-----------")
@@ -68,11 +73,7 @@ class gridlayout_Screen(GridLayout):
                 self.process_download = " "
             elif self.ids.my_text_input.text.find("youtube.com") >= 0 :
                 self.process_download = "ดาวน์โหลดเสร็จแล้ว"
-            self.ids.my_text_input.text = ""
-            self.ids.my_progress_bar.value = 0
-        for i in range(0,101):
-            self.ids.my_progress_bar.value = i
-      
+
     def on_open_dir_mp3(self):
         import os
         path = "Download MP3"
@@ -84,7 +85,7 @@ class gridlayout_Screen(GridLayout):
         animate += Animation(opacity=1,)
         animate.start(self.ids.btn_1)
 
-        
+
         
     
     

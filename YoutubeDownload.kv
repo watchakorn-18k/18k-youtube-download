@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 gridlayout_Screen:
 
+
 #:import hex kivy.utils.get_color_from_hex
 
 #:set font_text 'font/TF_PHETHAI.ttf'
@@ -14,28 +15,44 @@ gridlayout_Screen:
             pos: self.pos
             size: self.size
     cols: 1
-    rows: 10
+    padding: 20
+    
     # Image:
     #     size_hint: 0.1, None
     #     source: 'logo.png'
     #     size: '300dp','300dp'
-    Button:
-        id: btn_1
-        on_release: root.animate_it()
-        size_hint: None, None
-        background_normal: 'logo.png'
-        background_down: 'logo_disabled.png'
-        size: '300dp','300dp'
-        font_size: '45sp'
-        font_name: font_text
-        on_press: root.on_open_dir_mp3()
-    
+    Label:
+        text:''
+    BoxLayout:
+        orientation: 'horizontal'
+        
+        Label:
+            text:''
+        Button:
+            id: btn_1
+            on_release: root.animate_it()
+            size_hint: 2,3
+            pos_hint: {'center_x': 1, 'center_y': 0.5}
+            background_normal: 'logo.png'
+            background_down: 'logo_disabled.png'
+            size: '100dp','50dp'
+            font_size: '45sp'
+            font_name: font_text
+            pos: '100dp','200dp'
+            on_press: root.on_open_dir_mp3()
+            radius: [50,]
+            spacing: '20dp'
+        Label:
+            text:''
+    Label:
+        text:''
     TextInput:
         id: my_text_input
         text: ""
         size_hint: .1, None
         height: 30
         width: 50
+        font_size:'15sp'
         multiline: False
         font_name: font_text_mini
     Button:
@@ -71,10 +88,7 @@ gridlayout_Screen:
         font_name: font_text
         font_size: '20sp'
         color: hex('#00ff00') if root.process_download == "ดาวน์โหลดเสร็จแล้ว" else hex('#ffbb00')
-    ProgressBar:
-        id: my_progress_bar
-        max:100
-        value:0
+
     Label:
         text:'Dev. Wk-18K ecq-studio.com/18K/X/'
         font_name: font_text_mini
