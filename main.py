@@ -68,14 +68,22 @@ class gridlayout_Screen(GridLayout):
                     
         except :
             print("-----------")
-            print(self.ids.my_text_input.text.find("youtube.com"))
-            if self.ids.my_text_input.text.find("youtube.com") == -1 :
-                self.process_download = " "
-            elif self.ids.my_text_input.text.find("youtube.com") >= 0 :
+            print(link)
+            print(link.find("youtu.be"))
+            if link.find("youtube.com") and link.find("youtu.be") == -1:
+                self.process_download = "ใส่ลิงก์เพลงจาก youtube.com"
+                print(self.process_download)
+            elif link.find("youtube.com") and link.find("youtu.be") >= 0 :
                 self.process_download = "ดาวน์โหลดเสร็จแล้ว"
+                print(self.process_download)
 
     def on_open_dir_mp3(self):
         import os
+        if os.path.isdir("Download MP3"):
+            PATH = '/Download MP3/'
+        elif os.path.isdir("Download MP3") != True:
+            os.mkdir("Download MP3")
+            PATH = '/Download MP3/'
         path = "Download MP3"
         path = os.path.realpath(path)
         os.startfile(path)
