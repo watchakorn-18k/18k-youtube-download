@@ -31,7 +31,7 @@ pip install youtube-dl
 ## 💉 Example
 
 <p align="center">
- <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/master/font/1627149586608.gif"/></a> </p>
+ <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/Python-download-YT-MP3-v.2.0/font/1631424930689.gif"/></a> </p>
 
 I can't convert exe files, if anyone has the ability, please advise me. I converted the file and it got an error
 ## How to use
