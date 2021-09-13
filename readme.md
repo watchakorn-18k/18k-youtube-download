@@ -33,8 +33,6 @@ pip install youtube-dl
 <p align="center">
  <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/Python-download-YT-MP3-v.2.0/font/1631424930689.gif"/></a> </p>
 
-I can't convert exe files, if anyone has the ability, please advise me. I converted the file and it got an error
-## How to use
-- You can open files in folders. YoutubeDownload file named run.cmd
 
-I can't convert exe files, if anyone has the ability, please advise me. I converted the file and it got an error
+## How to use
+- https://youtu.be/szN09LLOO3E
