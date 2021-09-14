@@ -36,17 +36,22 @@ class gridlayout_Screen(GridLayout):
             
             link = self.ids.my_text_input.text
             ydl_opts = {
-                'format':'worstaudio',
+                'format':'bestaudio/best',
                 'extractaudio':True,
                 'audioformat':'mp3',
                 'outtmpl': PATH +u'%(title)s - 18k.mp3',    #name the file the ID of the video
                 'noplaylist':True,
+                'keepvideo': True,
                 'nocheckcertificate':True,
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
                     'preferredquality': '128',
-                }],
+                },
+                    {
+                'key': 'FFmpegMetadata'
+                    }
+                ],
             }
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 meta = ydl.extract_info(link, download=False) 
