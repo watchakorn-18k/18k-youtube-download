@@ -3,7 +3,8 @@ gridlayout_Screen:
 
 
 #:import hex kivy.utils.get_color_from_hex
-
+#:import threading threading
+#:import webbrowser webbrowser
 #:set font_text 'font/TF_PHETHAI.ttf'
 #:set font_text_mini 'font/thaisanslite_r1.ttf'
 
@@ -30,7 +31,7 @@ gridlayout_Screen:
             text:''
         Button:
             id: btn_1
-            on_release: root.animate_it()
+            on_release: threading.Thread(target=root.animate_it).start()
             size_hint: 2,3
             pos_hint: {'center_x': 1, 'center_y': 0.5}
             background_normal: 'logo.png'
@@ -39,7 +40,7 @@ gridlayout_Screen:
             font_size: '45sp'
             font_name: font_text
             pos: '100dp','200dp'
-            on_press: root.on_open_dir_mp3()
+            on_press: threading.Thread(target=root.on_open_dir_mp3).start()
             radius: [50,]
             spacing: '20dp'
         Label:
@@ -59,7 +60,7 @@ gridlayout_Screen:
         id: my_button_1
         text:'ดาวน์โหลดเป็น MP3'
         size_hint: 0.1, None
-        on_press: root.on_button_click()
+        on_release: threading.Thread(target=root.on_button_click).start()
         font_name: font_text_mini
         font_size: '20sp'
         height: "50dp"
@@ -71,6 +72,7 @@ gridlayout_Screen:
                 rgba: hex('#333333')
         disabled: True if my_text_input.text == '' else False
     Label:
+        id: my_label_top
         text:'กด Ctrl + V เพื่อวางลิงก์' if my_text_input.text == '' else 'กด ดาวน์โหลดเป็น Mp3 เพื่อดาวน์โหลดเพลง'
         font_name: font_text
         font_size: '20sp'
@@ -89,7 +91,27 @@ gridlayout_Screen:
         font_size: '20sp'
         color: hex('#00ff00') if root.process_download == "ดาวน์โหลดเสร็จแล้ว" else hex('#ffbb00')
 
-    Label:
-        text:'Dev. Wk-18K ecq-studio.com/18K/X/'
+
+        
+
+    ProgressBar:
+        id: my_progress_bar
+        max:100
+        value: 0
+        background_color:"#22222" 
+    Button:
+        text:'ตรวจเวอร์ซอฟต์แวร์เวอร์ชั่นล่าสุด'
         font_name: font_text_mini
         font_size: '15sp'
+        pos: '10dp','10dp'
+        size_hint: 0.1, 0.5
+        background_color: '#ffbb00'
+        background_normal: '#a37d15'
+        on_release: webbrowser.open('https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/')
+    Label:
+        text:'Dev. Wk-18K version 2.1'
+        font_name: font_text_mini
+        font_size: '15sp'
+        pos: '10dp','10dp'
+        size_hint: 0.1, 0.5
+    
