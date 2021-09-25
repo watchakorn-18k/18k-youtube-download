@@ -1,23 +1,58 @@
+from kivy.config import Config
+Config.set('graphics', 'resizable', '0')
+Config.set('graphics', 'width', '400')
+Config.set('graphics', 'height', '600')
+Config.set('kivy','window_icon','logo.png')
+Config.set('input', 'mouse', 'mouse,disable_multitouch')
 from logging import shutdown
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
-# i need GridLayout
+from kivy.core.window import Window
+from kivy.animation import Animation
+from kivy.base import EventLoop
 from kivy.properties import StringProperty,BooleanProperty,NumericProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.progressbar import ProgressBar
 import youtube_dl
 import os
-from kivy.core.window import Window
-from kivy.animation import Animation
+from youtubesearchpython import VideosSearch
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 import re
 import asyncio
 import time
 from threading import Thread
+
+
+def search_youtube(self,input_search):
+    videosSearch = VideosSearch(input_search, limit = 1)
+    dict_data = videosSearch.result()
+    def load_thumbnail_url():
+        for i in dict_data["result"]:
+            img = next(iter(i["thumbnails"]))["url"]
+            return img
+    def load_title_youtube():
+        for i in dict_data["result"]:
+            title = i["title"][0:30]
+            return title
+    def load_duration_youtube():
+        for i in dict_data["result"]:
+            duration = f'ความยาว {i["duration"]}'
+            return duration
+    def load_link_youtube():
+        for i in dict_data["result"]:
+            link_data = i["link"]
+            return link_data
+    if dict_data['result'] != []:
+        self.ids.title_youtube.text = "  " + load_title_youtube()
+        self.ids.image_youtube.source = load_thumbnail_url()
+        self.ids.duration_youtube.text = load_duration_youtube()
+        self.ids.copy_link.value = load_link_youtube()
+    else:
+        self.ids.label_youtube.text = "ไม่พบข้อมูล"
 
 
 def listToString(s):
@@ -43,10 +78,12 @@ def create_dir_cache_music():
     return PATH_CACHE
 
 def start_youtube_download(self):
-    if self.ids.my_text_input.text.find("www.youtube.com/watch?v=") == self.ids.my_text_input.text.find("youtu.be/"):
-        self.process_download = "ใส่ลิงก์เพลงจาก youtube.com"
-        print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
-        print(self.ids.my_text_input.text.find("youtu.be/"))
+    if self.ids.my_text_input.text == '18K':
+        self.ids.title_youtube.text = "  " + "18K"
+        self.ids.image_youtube.source = "logo_title.png"
+        self.ids.duration_youtube.text = "Radio"
+    elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") == self.ids.my_text_input.text.find("youtu.be/"):
+        search_youtube(self,self.ids.my_text_input.text)
     elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") or self.ids.my_text_input.text.find("youtu.be/") >= 0:
         print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
         print(self.ids.my_text_input.text.find("youtu.be/"))
@@ -57,9 +94,6 @@ def start_youtube_download(self):
             await download_music(self)
             await convert_mp3(self)
         asyncio.run(main(self))
-    else:
-        print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
-        print(self.ids.my_text_input.text.find("youtu.be/"))
 
 
 async def download_music(self):
@@ -92,6 +126,7 @@ async def download_music(self):
             video_duration = info_dict.get('duration', None)/60
             self.ids.my_progress_bar.value = 30
             self.process_download = "กำลังโหลด..."
+            video_title[0:30]
             self.ids.my_progress_bar.value = 50
             ydl.download([link])
             #self.my_text = f"{listToString(re.split(' ',video_title[0:30]))}..... - {int(video_duration)} นาที"
@@ -102,7 +137,6 @@ async def convert_mp3(self):
     try:
         for filename in os.listdir("cache_MP3"):
             music_name = str(filename)
-        print(music_name)
         clip = AudioFileClip(f'cache_MP3\{music_name}')
         self.process_download = "กำลังแปลงไฟล์..."
         self.ids.my_progress_bar.value = 80
@@ -126,13 +160,10 @@ class gridlayout_Screen(GridLayout):
     process_download = StringProperty("")
     count = 0
     process_download_value = NumericProperty(0)
-
+    
     def on_button_click(self):
         start_youtube_download(self)
     
-
-
-
     def on_open_dir_mp3(self):
         create_dir_download()
         path = "Download MP3"
@@ -144,22 +175,26 @@ class gridlayout_Screen(GridLayout):
         animate.start(self.ids.btn_1)
 
 
-        
-    
-    
 
 
+
+class RightClickTextInput(TextInput):   
+
+    def on_touch_down(self, touch):
+
+        super(RightClickTextInput,self).on_touch_down(touch)
+
+        if touch.button == 'right':
+            print("right mouse clicked")
+            pos = touch.pos
+
+            self._show_cut_copy_paste(
+                pos, EventLoop.window, mode='paste')
 class YoutubeDownloadApp(App):
     def build(self):
         self.title = 'ดาวน์โหลดเพลงจากยูทูป'
-        self.icon = 'logo.png'
         self.title_color = 1,0,0,1
-        Window.size = (400, 600)
-
-
-
-
-        
+    
 YoutubeDownloadApp().run()
         
 
