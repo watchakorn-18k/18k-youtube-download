@@ -1,4 +1,4 @@
-<h2 align="center">🎧 Python-download-YT-MP3 🎧</h2>
+<h2 align="center">🎧 18k-youtube-download 🎧</h2>
 <br>
 
 <p align="center">
@@ -7,7 +7,7 @@
 <a href="#" align="center"><img src="https://img.shields.io/github/languages/code-size/watchakorn-18k/Python-download-YT-MP3"/></a>
 </p>
 
-## 🎈 Python-download-YT-MP3
+## 🎈 18k-youtube-download
 ### A simple project to make gui on kivy mixed with the function of downloading music from youtube with youtube_dl package
 
 ### 📌 Requirement
