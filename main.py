@@ -21,7 +21,6 @@ import youtube_dl
 import os
 from youtubesearchpython import VideosSearch
 from moviepy.audio.io.AudioFileClip import AudioFileClip
-import re
 import asyncio
 import time
 from threading import Thread
@@ -129,7 +128,6 @@ async def download_music(self):
             video_title[0:30]
             self.ids.my_progress_bar.value = 50
             ydl.download([link])
-            #self.my_text = f"{listToString(re.split(' ',video_title[0:30]))}..... - {int(video_duration)} นาที"
     except :
         pass
 
