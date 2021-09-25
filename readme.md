@@ -28,8 +28,30 @@ pip install youtube-dl
 ## 💉 Example
 
 <p align="center">
- <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/Python-download-YT-MP3-v.2.0/font/1631424930689.gif"/></a> </p>
+ <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/1632571689776.gif"/></a>
+<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/Ex1.png"/></a>
+</p>
 
 
 ## How to use
 - https://youtu.be/szN09LLOO3E
+
+📌 วิธีลง
+- โหลดโปรแกรมที่ https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/
+- แตกไฟล์
+- จากนั้น หาไฟล์ชื่อ 18k-youtube-download.exe 
+📌 วิธีใช้
+- เอาลิงก์ youtube มาใส่ รองรับทั้งแบบ youtube.com และ youtu.be
+- สามารถค้นหาด้วยชื่อเพลงได้ลเย
+- จากกด Download เลย
+- จากนั้นรอเพลงโหลดเสร็จ
+- เปิดโฟลเดอร์เพลงได้ที่ รูปโลโก้ 18K 
+
+## CHANGELOG
+### Python-download-YT-MP3-18K-v3.0
+- เพิ่มระบบค้นหา youtube ด้วยข้อความ
+- เพิ่มระบบคลิกขวาแล้วมีเมนูให้เลือก
+### Python-download-YT-MP3-18K-v2.0
+- เพิ่มปุ่มเปิดโฟลเดอร์ที่อยู่ของเพลงที่ดาวน์โหลด
+- ปรับแต่ง UI
+- แสดงรายชื่อเพลงก่อนหน้า
