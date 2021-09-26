@@ -1,9 +1,6 @@
-import json
-from youtubesearchpython import VideosSearch
+text = "https://music.youtube.com/watch?v=f02mOEt11OQ&list=RDAMVMf02mOEt11OQ"
 
-videosSearch = VideosSearch('ชีวิตเธอดีอยู่แล้ว', limit = 1)
-dict_data = videosSearch.result()
-json_data = json.dumps(videosSearch.result())
+if text.find("https://music.youtube.com/") == 0:
+    t1 = text.split("https://music.youtube.com/")[1]
+    text_res = "https://youtube.com/"+t1
 
-for i in dict_data["result"]:
-    print(i["link"])
