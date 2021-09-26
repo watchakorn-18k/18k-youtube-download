@@ -28,8 +28,8 @@ pip install youtube-dl
 ## 💉 Example
 
 <p align="center">
- <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/1632571689776.gif"/></a>
-<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/Ex1.png"/></a>
+ <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/18k-youtube-download-v3.2/IMG_SAMPLE/v3.2_4.gif"/></a>
+<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/blob/18k-youtube-download-v3.2/IMG_SAMPLE/v3.2_3.gif"/></a>
 </p>
 
 
