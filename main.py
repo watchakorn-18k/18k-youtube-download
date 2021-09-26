@@ -28,6 +28,14 @@ from threading import Thread
 
 
 
+def split_text(text):
+    import re
+    string_to_split = text
+    res = re.split('[^a-zA-Zก-ฮ0-9.ะาิืี๊่้ึ ุูแโเะั ำไใฤฤาฦฦา่้๊๋ๆ-]', string_to_split)
+    res = ''.join(res)
+    res = re.split('\s+', res)
+    res = ''.join(res)
+    return res
 
 def progress_update(self,number_progress):
     while True:
@@ -41,8 +49,7 @@ def progress_update(self,number_progress):
 def search_youtube(self,input_search):
     def check_data():
         if dict_data['result'] != []:
-            self.ids.notice_text.text = "คลิกคัดลอกลิงก์"
-            self.ids.label_youtube.font_name = "font/Kanit-Light.ttf"
+            self.ids.notice_text.text = ""
             self.ids.title_youtube.text = " " + load_title_youtube()
             self.ids.image_youtube.source = load_thumbnail_url()
             self.ids.duration_youtube.text = load_duration_youtube()
@@ -124,7 +131,7 @@ async def download_music(self):
     try:
         self.ids.my_button_1.disabled = True
         PATH_CACHE = create_dir_cache_music()
-        Thread(target=progress_update, args=(self,0.5)).start()
+        Thread(target=progress_update, args=(self,0.4)).start()
         link = self.ids.my_text_input.text
         self.ids.copy_link.opacity = 0
         self.ids.title_youtube.opacity = 0
@@ -164,6 +171,12 @@ async def download_music(self):
 async def convert_mp3(self):
     try:
         Thread(target=progress_update, args=(self,0.5)).start()
+        dir = "cache_MP3"
+        for count, filename in enumerate(os.listdir(dir)):
+            dst = os.path.join(dir, f"{split_text(filename)}")
+            src = os.path.join(dir, filename)
+            os.rename(src, dst)
+        print("succes")
         for filename in os.listdir("cache_MP3"):
             music_name = str(filename)
         clip = AudioFileClip(f'cache_MP3\{music_name}')

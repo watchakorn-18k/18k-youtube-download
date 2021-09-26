@@ -29,7 +29,7 @@ gridlayout_Screen:
         Button:
             id: btn_1
             on_release: threading.Thread(target=root.animate_it).start()
-            size_hint: 1.5, 3.5
+            size_hint: 2, 3.5
             pos_hint: {'center_x': 1, 'center_y': 0.8}
             background_normal: 'Assets/logo.png'
             background_down: 'Assets/logo_disabled.png'
@@ -77,7 +77,7 @@ gridlayout_Screen:
             anim_delay: 0.1
             size_hint: None,None
             size: '140dp','300dp'
-            pos_hint: {'x':-1, 'y':-2.2}
+            pos_hint: {'x':-1, 'y':-2.3}
             opacity: 1
         Label:
             id: title_youtube
@@ -127,7 +127,7 @@ gridlayout_Screen:
     Label:
         id: notice_text
         text: 'ค้นหาเพลงหรือใส่ลิงก์ในช่องว่าง' if my_text_input.text == '' else my_text_input.text[0:25]
-        font_name: font_text_mini if my_text_input.text == '' else font_text
+        font_name: font_text_mini if my_text_input.text == '' else font_text_mini
         font_size: '30sp' if my_text_input.text == '' else '35sp'
         color: hex('#ffbb00') if my_text_input.text == '' else hex('#ffbb00')
     Label:
@@ -141,13 +141,19 @@ gridlayout_Screen:
         font_name: kanit
         font_size: '20sp'
         color: hex('#00ff00') if root.process_download == "ดาวน์โหลดเสร็จแล้ว" else hex('#ffbb00')
-
+    Label:
+        id: test
+        text: str(int(progress_bar_status.value)) + " %" if progress_bar_status.value != 0 else ""
+        font_name: kanit
+        font_size: '15sp'
     ProgressBar:
         id: progress_bar_status
         max:100
         min: 0
-        value: 50
+        value: 0
+        size_hint: 0.1, 0.1
         canvas:
+
             BorderImage:
                 border: (6, 6, 6, 6)
                 pos: self.x, self.center_y - 6
@@ -159,13 +165,14 @@ gridlayout_Screen:
                 source: 'Assets/button_pressed.png'
         
     Label:
-        text:'Dev. Wk-18K version 3.2'
+        text:'Dev. Wk-18K version 3.2 https://discord.gg/AsZgC95SYu'
         font_name: font_text_mini
         font_size: '15sp'
         pos: '10dp','20dp'
         size_hint: 0.1, 1
+
     Button:
-        text:'ตรวจเวอร์ซอฟต์แวร์เวอร์ชั่นล่าสุด'
+        text:'ตรวจเวอร์ชันซอฟต์แวร์'
         font_name: font_text_mini
         font_size: '15sp'
         pos: '10dp','10dp'
@@ -173,6 +180,7 @@ gridlayout_Screen:
         background_color: '#171516'
         background_normal: '#252022'
         on_release: webbrowser.open('https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/')
+
 
 <RightClickTextInput>:
     
