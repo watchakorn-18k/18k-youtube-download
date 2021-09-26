@@ -1,8 +1,3 @@
-python -m PyInstaller --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
-
-
-# pyinstaller
-# --name 18k-youtube-download
 from kivy_deps import sdl2, glew
 # -*- mode: python ; coding: utf-8 -*-
 
@@ -48,7 +43,3 @@ coll = COLLECT(exe, Tree('D:\\FILE_CODE_ALL\\kivy\\Python-download-YT-MP3\\'),
                strip=False,
                upx=True,
                name='18k-youtube-download')
-
-#
-
-python -m PyInstaller 18k-youtube-download_test.spec

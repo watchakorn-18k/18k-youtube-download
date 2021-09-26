@@ -2,8 +2,9 @@ from kivy.config import Config
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '400')
 Config.set('graphics', 'height', '600')
-Config.set('kivy','window_icon','logo.png')
+Config.set('kivy','window_icon','Assets/logo.png')
 Config.set('input', 'mouse', 'mouse,disable_multitouch')
+
 from logging import shutdown
 from kivy.app import App
 from kivy.uix.button import Button
@@ -26,7 +27,36 @@ import time
 from threading import Thread
 
 
+
+
+def progress_update(self,number_progress):
+    while True:
+        current = self.ids.progress_bar_status.value
+        current += number_progress
+        self.ids.progress_bar_status.value = current
+        time.sleep(0.1)
+        if current >= 100:
+            break
+
 def search_youtube(self,input_search):
+    def check_data():
+        if dict_data['result'] != []:
+            self.ids.notice_text.text = "คลิกคัดลอกลิงก์"
+            self.ids.label_youtube.font_name = "font/Kanit-Light.ttf"
+            self.ids.title_youtube.text = " " + load_title_youtube()
+            self.ids.image_youtube.source = load_thumbnail_url()
+            self.ids.duration_youtube.text = load_duration_youtube()
+            self.ids.copy_link.value = load_link_youtube()
+            self.ids.copy_link.opacity = 1
+            self.ids.title_youtube.opacity = 1
+            self.ids.image_youtube.opacity = 1
+            self.ids.duration_youtube.opacity = 1
+        else:
+            self.ids.label_youtube.text = "ไม่พบข้อมูล"
+            self.ids.copy_link.opacity = 0
+            self.ids.title_youtube.opacity = 0
+            self.ids.image_youtube.opacity = 0
+            self.ids.duration_youtube.opacity = 0
     videosSearch = VideosSearch(input_search, limit = 1)
     dict_data = videosSearch.result()
     def load_thumbnail_url():
@@ -45,20 +75,8 @@ def search_youtube(self,input_search):
         for i in dict_data["result"]:
             link_data = i["link"]
             return link_data
-    if dict_data['result'] != []:
-        self.ids.title_youtube.text = "  " + load_title_youtube()
-        self.ids.image_youtube.source = load_thumbnail_url()
-        self.ids.duration_youtube.text = load_duration_youtube()
-        self.ids.copy_link.value = load_link_youtube()
-    else:
-        self.ids.label_youtube.text = "ไม่พบข้อมูล"
+    check_data()
 
-
-def listToString(s):
-    str1 = " "
-    for ele in s: 
-        str1 += ele
-    return str1
 
 def create_dir_download():
     if os.path.isdir("Download MP3"):
@@ -76,19 +94,26 @@ def create_dir_cache_music():
         PATH_CACHE = '/cache_MP3/'
     return PATH_CACHE
 
+def check_youtube_music(text):
+    t1 = text.split("https://music.youtube.com/")[1]
+    text_res = "https://youtube.com/"+t1
+    return text_res
+
 def start_youtube_download(self):
-    if self.ids.my_text_input.text == '18K':
-        self.ids.title_youtube.text = "  " + "18K"
-        self.ids.image_youtube.source = "logo_title.png"
-        self.ids.duration_youtube.text = "Radio"
+    if self.ids.my_text_input.text.find("https://music.youtube.com/") == 0:
+        self.ids.my_text_input.text = check_youtube_music(self.ids.my_text_input.text)
+        create_dir_download()
+        async def main(self):
+            await download_music(self)
+            await convert_mp3(self)
+        asyncio.run(main(self))
+
     elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") == self.ids.my_text_input.text.find("youtu.be/"):
         search_youtube(self,self.ids.my_text_input.text)
     elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") or self.ids.my_text_input.text.find("youtu.be/") >= 0:
         print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
         print(self.ids.my_text_input.text.find("youtu.be/"))
         create_dir_download()
-        self.ids.my_progress_bar.value = 10
-        self.ids.my_button_1.disabled = True
         async def main(self):
             await download_music(self)
             await convert_mp3(self)
@@ -97,8 +122,14 @@ def start_youtube_download(self):
 
 async def download_music(self):
     try:
+        self.ids.my_button_1.disabled = True
         PATH_CACHE = create_dir_cache_music()
+        Thread(target=progress_update, args=(self,0.5)).start()
         link = self.ids.my_text_input.text
+        self.ids.copy_link.opacity = 0
+        self.ids.title_youtube.opacity = 0
+        self.ids.image_youtube.opacity = 0
+        self.ids.duration_youtube.opacity = 0
         ydl_opts = {
             'format':'worstaudio',
             'extractaudio':True,
@@ -117,38 +148,38 @@ async def download_music(self):
                 }
             ],
         }
-        self.ids.my_progress_bar.value = 20
+
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             meta = ydl.extract_info(link, download=False) 
             info_dict = ydl.extract_info(link, download=False)
             video_title = info_dict.get('title', None)
             video_duration = info_dict.get('duration', None)/60
-            self.ids.my_progress_bar.value = 30
             self.process_download = "กำลังโหลด..."
             video_title[0:30]
-            self.ids.my_progress_bar.value = 50
             ydl.download([link])
+            
     except :
         pass
 
 async def convert_mp3(self):
     try:
+        Thread(target=progress_update, args=(self,0.5)).start()
         for filename in os.listdir("cache_MP3"):
             music_name = str(filename)
         clip = AudioFileClip(f'cache_MP3\{music_name}')
         self.process_download = "กำลังแปลงไฟล์..."
-        self.ids.my_progress_bar.value = 80
         clip.write_audiofile(f'Download MP3\{music_name}')
+        Thread(target=progress_update, args=(self,10)).start()
         self.process_download = "ดาวน์โหลดเสร็จแล้ว"
         self.my_text = f"{music_name[0:30]} - 18k"
-        self.ids.my_progress_bar.value = 90
+        
         clip.close()
         os.remove(f'cache_MP3\{music_name}')
-        self.ids.my_progress_bar.value = 100
-        self.ids.my_label_top.text = "คลิกที่โลโก้ 18K เพื่อเปิดโฟลเดอร์เพลง"
+
+        self.ids.notice_text.text = "เปิดโฟลเดอร์เพลงตรง Logo 18K "
+        self.ids.notice_text.font_size = 25
     except :
         pass
-
 
 
 class gridlayout_Screen(GridLayout):
@@ -158,10 +189,12 @@ class gridlayout_Screen(GridLayout):
     process_download = StringProperty("")
     count = 0
     process_download_value = NumericProperty(0)
-    
     def on_button_click(self):
+        self.ids.label_youtube.text = ' '
+        self.ids.notice_text.text = 'รอสักครู่...'
+        self.ids.progress_bar_status.value = 0
         start_youtube_download(self)
-    
+
     def on_open_dir_mp3(self):
         create_dir_download()
         path = "Download MP3"
@@ -171,6 +204,7 @@ class gridlayout_Screen(GridLayout):
         animate = Animation(opacity=0,duration=0.1)
         animate += Animation(opacity=1,)
         animate.start(self.ids.btn_1)
+
 
 
 

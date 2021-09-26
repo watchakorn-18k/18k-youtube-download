@@ -7,6 +7,7 @@ gridlayout_Screen:
 #:import webbrowser webbrowser
 #:set font_text 'font/TF_PHETHAI.ttf'
 #:set font_text_mini 'font/thaisanslite_r1.ttf'
+#:set kanit 'font/Kanit-Light.ttf'
 
 <gridlayout_Screen>:
     canvas.before:
@@ -18,10 +19,6 @@ gridlayout_Screen:
     cols: 1
     padding: 20
     
-    # Image:
-    #     size_hint: 0.1, None
-    #     source: 'logo.png'
-    #     size: '300dp','300dp'
     Label:
         text:''
     BoxLayout:
@@ -32,13 +29,13 @@ gridlayout_Screen:
         Button:
             id: btn_1
             on_release: threading.Thread(target=root.animate_it).start()
-            size_hint: 2, 3
-            pos_hint: {'center_x': 1, 'center_y': 0.5}
-            background_normal: 'logo.png'
-            background_down: 'logo_disabled.png'
+            size_hint: 1.5, 3.5
+            pos_hint: {'center_x': 1, 'center_y': 0.8}
+            background_normal: 'Assets/logo.png'
+            background_down: 'Assets/logo_disabled.png'
             font_size: '45sp'
             font_name: font_text
-            on_press: threading.Thread(target=root.on_open_dir_mp3).start()
+            on_release: threading.Thread(target=root.on_open_dir_mp3).start()
         Label:
             text:''
     Label:
@@ -52,17 +49,18 @@ gridlayout_Screen:
         font_size:'15sp'
         multiline: False
         use_bubble: True
-        font_name: font_text_mini
+        font_name: font_text
     Button:
         id: my_button_1
-        text:'ดาวน์โหลดเป็น MP3'
+        text:'ค้นหา/ดาวน์โหลด MP3'
         size_hint: 0.1, None
         on_release: threading.Thread(target=root.on_button_click).start()
         font_name: font_text_mini
-        font_size: '20sp'
-        height: "50dp"
-        background_color: '#54c6ff'
-        background_normal: '#54c6f0'
+        font_size: '25sp'
+        height: "45dp"
+        background_color: '#e4a136'
+        background_normal: '#e4a136'
+        background_down: "Assets/button_pressed.png"
         
         canvas.before:
             Color:
@@ -75,86 +73,106 @@ gridlayout_Screen:
         orientation:'horizontal'
         AsyncImage:
             id: image_youtube
-            source: 'blank.png'
+            source: 'Assets/blank.png'
             anim_delay: 0.1
             size_hint: None,None
             size: '140dp','300dp'
             pos_hint: {'x':-1, 'y':-2.2}
+            opacity: 1
         Label:
             id: title_youtube
             text:''
             size_hint:None,None
-            pos_hint: {'y': -0.5}
-            font_name: font_text
+            pos_hint: {'y': -0.40}
+            font_name: kanit
             font_size: '15sp'
             text_size:self.size
             halign: 'right'
             valign:"top"
+            opacity: 1
         Label:
             id: duration_youtube
             text:''
             size_hint:None,None
             pos_hint: {'y': -0.5}
-            font_name: font_text
-            font_size: '15sp'
+            font_name: kanit
+            font_size: '10sp'
             text_size:self.size
             halign: 'right'
             valign:"top"
+            opacity: 1
     Button:
         id: copy_link
         text:'คัดลอกลิงก์'
-        font_name: font_text
+        font_name: font_text_mini
         size_hint: None,None
         size_hint_x: 1
         size_hint_y: 0.4
         text_size:self.size
         valign:"middle"
         halign: 'center'
-        background_color: '#e89002'
-        background_normal: '#a37d15'
-        value: "18K"
+        background_color: '#e4a136'
+        background_normal: '#e4a136'
+        background_down: "Assets/button_pressed.png"
+        value: "ecq-studio.com/18K/X/"
+        disabled: True if my_text_input.text == '' else False
+        opacity: 0
         on_release:
             Clipboard.copy(copy_link.value)
             my_text_input.text = copy_link.value
+            notice_text.text = "คลิกดาวน์โหลด MP3"
         
             
 
     Label:
-        text: 'ใส่ลิงก์ลงในช่องว่าง' if my_text_input.text == '' else 'เพลงล่าสุดที่ดาวน์โหลด'
+        id: notice_text
+        text: 'ค้นหาเพลงหรือใส่ลิงก์ในช่องว่าง' if my_text_input.text == '' else my_text_input.text[0:25]
         font_name: font_text_mini if my_text_input.text == '' else font_text
-        font_size: '40sp' if my_text_input.text == '' else '40sp'
+        font_size: '30sp' if my_text_input.text == '' else '35sp'
         color: hex('#ffbb00') if my_text_input.text == '' else hex('#ffbb00')
     Label:
         id: label_youtube
-        text:root.my_text
+        text: root.my_text
         font_name: font_text
         font_size: '23sp'
     Label:
+        id: process_text
         text: "" if root.process_download == '' else root.process_download
-        font_name: font_text
+        font_name: kanit
         font_size: '20sp'
         color: hex('#00ff00') if root.process_download == "ดาวน์โหลดเสร็จแล้ว" else hex('#ffbb00')
 
     ProgressBar:
-        id: my_progress_bar
+        id: progress_bar_status
         max:100
-        value: 0
+        min: 0
+        value: 50
+        canvas:
+            BorderImage:
+                border: (6, 6, 6, 6)
+                pos: self.x, self.center_y - 6
+                size: self.width, 12
+            BorderImage:
+                border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 6))] * 4
+                pos: self.x, self.center_y - 6
+                size: self.width * (self.value / float(self.max)) if self.max else 0, 12
+                source: 'Assets/button_pressed.png'
+        
+    Label:
+        text:'Dev. Wk-18K version 3.2'
+        font_name: font_text_mini
+        font_size: '15sp'
+        pos: '10dp','20dp'
+        size_hint: 0.1, 1
     Button:
         text:'ตรวจเวอร์ซอฟต์แวร์เวอร์ชั่นล่าสุด'
         font_name: font_text_mini
         font_size: '15sp'
         pos: '10dp','10dp'
-        size_hint: 0.1, 0.5
-        background_color: '#ffbb00'
-        background_normal: '#a37d15'
+        size_hint: 0.1, 0.1
+        background_color: '#171516'
+        background_normal: '#252022'
         on_release: webbrowser.open('https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/')
-    Label:
-        text:'Dev. Wk-18K version 2.1'
-        font_name: font_text_mini
-        font_size: '15sp'
-        pos: '10dp','10dp'
-        size_hint: 0.1, 0.5
-
 
 <RightClickTextInput>:
     
