@@ -29,7 +29,7 @@ gridlayout_Screen:
         Button:
             id: btn_1
             on_release: threading.Thread(target=root.animate_it).start()
-            size_hint: 2, 3.5
+            size_hint: 1.8, 3.5
             pos_hint: {'center_x': 1, 'center_y': 0.8}
             background_normal: 'Assets/logo.png'
             background_down: 'Assets/logo_disabled.png'
@@ -77,7 +77,7 @@ gridlayout_Screen:
             anim_delay: 0.1
             size_hint: None,None
             size: '140dp','300dp'
-            pos_hint: {'x':-1, 'y':-2.3}
+            pos_hint: {'x':-1, 'y':-2.4}
             opacity: 1
         Label:
             id: title_youtube
@@ -176,7 +176,7 @@ gridlayout_Screen:
         font_name: font_text_mini
         font_size: '15sp'
         pos: '10dp','10dp'
-        size_hint: 0.1, 0.1
+        size_hint: 0.1, 0.5
         background_color: '#171516'
         background_normal: '#252022'
         on_release: webbrowser.open('https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/')

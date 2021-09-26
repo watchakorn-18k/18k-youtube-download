@@ -224,22 +224,19 @@ class gridlayout_Screen(GridLayout):
 
 
 class RightClickTextInput(TextInput):   
-
     def on_touch_down(self, touch):
-
         super(RightClickTextInput,self).on_touch_down(touch)
-
         if touch.button == 'right':
             print("right mouse clicked")
             pos = touch.pos
-
             self._show_cut_copy_paste(
                 pos, EventLoop.window, mode='paste')
+                
 class YoutubeDownloadApp(App):
     def build(self):
         self.title = 'ดาวน์โหลดเพลงจากยูทูป'
         self.title_color = 1,0,0,1
     
 YoutubeDownloadApp().run()
-        
+
 
