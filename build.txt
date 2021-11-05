@@ -1,7 +1,10 @@
 python -m PyInstaller --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
 
+<<<<<<< HEAD
 python -m PyInstaller --onefile --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
 
+=======
+>>>>>>> master
 # pyinstaller
 # --name 18k-youtube-download
 from kivy_deps import sdl2, glew
