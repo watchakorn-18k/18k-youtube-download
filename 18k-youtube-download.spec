@@ -1,3 +1,4 @@
+from kivy_deps import sdl2, glew
 # -*- mode: python ; coding: utf-8 -*-
 
 
@@ -34,11 +35,11 @@ exe = EXE(pyz,
           target_arch=None,
           codesign_identity=None,
           entitlements_file=None , icon='logo_title.ico')
-coll = COLLECT(exe,
+coll = COLLECT(exe, Tree('D:\\FILE_CODE_ALL\\kivy\\Python-download-YT-MP3\\'),
                a.binaries,
                a.zipfiles,
-               a.datas, 
+               a.datas,
+               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
-               upx_exclude=[],
                name='18k-youtube-download')
