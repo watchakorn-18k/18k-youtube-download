@@ -24,6 +24,7 @@ from youtubesearchpython import VideosSearch
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 import asyncio
 import time
+import shutil
 from threading import Thread
 
 
@@ -42,7 +43,7 @@ def progress_update(self,number_progress):
         current = self.ids.progress_bar_status.value
         current += number_progress
         self.ids.progress_bar_status.value = current
-        time.sleep(0.1)
+        time.sleep(0.5)
         if current >= 100:
             break
 
@@ -170,7 +171,7 @@ async def download_music(self):
 
 async def convert_mp3(self):
     try:
-        Thread(target=progress_update, args=(self,0)).start()
+        Thread(target=progress_update, args=(self,0.5)).start()
         dir = "cache_MP3"
         for count, filename in enumerate(os.listdir(dir)):
             dst = os.path.join(dir, f"{split_text(filename)}")
@@ -182,12 +183,12 @@ async def convert_mp3(self):
         clip = AudioFileClip(f'cache_MP3\{music_name}')
         self.process_download = "กำลังแปลงไฟล์..."
         clip.write_audiofile(f'Download MP3\{music_name}')
-        Thread(target=progress_update, args=(self,10)).start()
+        Thread(target=progress_update, args=(self,100)).start()
         self.process_download = "ดาวน์โหลดเสร็จแล้ว"
         self.my_text = f"{music_name[0:30]} - 18k"
-        
+        shutil.rmtree('cache_MP3')
         clip.close()
-        os.remove(f'cache_MP3\{music_name}')
+
 
         self.ids.notice_text.text = "เปิดโฟลเดอร์เพลงตรง Logo 18K "
         self.ids.notice_text.font_size = 25
