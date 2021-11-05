@@ -18,7 +18,7 @@ from kivy.properties import StringProperty,BooleanProperty,NumericProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.progressbar import ProgressBar
-import youtube_dl
+import yt_dlp
 import os
 from youtubesearchpython import VideosSearch
 from moviepy.audio.io.AudioFileClip import AudioFileClip
@@ -156,7 +156,7 @@ async def download_music(self):
             ],
         }
 
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             meta = ydl.extract_info(link, download=False) 
             info_dict = ydl.extract_info(link, download=False)
             video_title = info_dict.get('title', None)
@@ -170,7 +170,7 @@ async def download_music(self):
 
 async def convert_mp3(self):
     try:
-        Thread(target=progress_update, args=(self,0.5)).start()
+        Thread(target=progress_update, args=(self,0)).start()
         dir = "cache_MP3"
         for count, filename in enumerate(os.listdir(dir)):
             dst = os.path.join(dir, f"{split_text(filename)}")
