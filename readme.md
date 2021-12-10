@@ -12,25 +12,25 @@
 ### A simple project to make gui on kivy mixed with the function of downloading music from youtube with youtube_dl package
 
 ### 📌 Requirement
-- python 3.8 ++
+- python 3.9.7 
 - Kivy==2.0.0
-- youtube-dl==2021.6.6
+- pytube
 
-## 📌 Python 3.8
-- https://www.python.org/downloads/release/python-380/
+## 📌 Python 3.9
+- https://www.python.org/downloads/release/python-390/
 
 
 ## 🔨 Pip install 
 ```
 pip install kivy
-pip install youtube-dl
+pip install pytube
 ```
 
 ## 💉 Example
 
 <p align="center">
- <a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/1632571689776.gif"/></a>
-<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/Python-download-YT-MP3-v.2.1/IMG_SAMPLE/Ex1.png"/></a>
+<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/v-3.4/IMG_SAMPLE/v3.4_2.gif"/></a>
+<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/v-3.4/IMG_SAMPLE/v3.4_1.gif"/></a>
 </p>
 
 
@@ -48,7 +48,16 @@ pip install youtube-dl
 - จากนั้นรอเพลงโหลดเสร็จ
 - เปิดโฟลเดอร์เพลงได้ที่ รูปโลโก้ 18K 
 
+## Future versin v 3.3
+- ดาวน์โหลดเพลงเร็วขึ้น
+- Callback การดาวน์โหลดจาก youtube ตรงกว่าเดิม
+- แปลงไฟล์เร็วขึ้นและแสดงผลระหว่างโปรแกรมทำงานเป็นข้อความ
+
+
 ## CHANGELOG
+# v 3.4
+- Change API download link youtube to pytube
+- Change package for covert mp4 to mp3 with use package ffmpeg
 # v.3.3
 - fix download slow
 # v.3.2

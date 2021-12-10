@@ -1,5 +1,7 @@
 altgraph==0.17
+anyio==3.4.0
 auto-py-to-exe==2.9.0
+autopep8==1.6.0
 bottle==0.12.19
 bottle-websocket==0.2.9
 certifi==2021.5.30
@@ -11,8 +13,6 @@ decorator==4.4.2
 deprecation==2.1.0
 docutils==0.17.1
 Eel==0.12.4
-eyed3==0.9.6
-ffmpeg==1.4
 ffmpeg-python==0.2.0
 filetype==1.0.7
 future==0.18.2
@@ -20,6 +20,9 @@ gevent==21.1.2
 gevent-websocket==0.10.1
 grako==3.99.9
 greenlet==1.1.0
+h11==0.12.0
+httpcore==0.14.3
+httpx==0.21.1
 idna==3.2
 imageio==2.9.0
 imageio-ffmpeg==0.4.5
@@ -32,7 +35,6 @@ kivy-deps.sdl2==0.3.1
 Kivy-examples==2.0.0
 Kivy-Garden==0.1.4
 kiwi-gtk==3.0.4
-moviepy==1.0.3
 mutagen==1.45.1
 numpy==1.21.1
 opencv-python==4.5.3.56
@@ -41,8 +43,9 @@ pafy==0.5.5
 pefile==2021.5.24
 Pillow==8.3.1
 proglog==0.1.9
+pycodestyle==2.8.0
 pycparser==2.20
-pydub==0.25.1
+pycryptodomex==3.12.0
 pyenchant==3.2.1
 Pygments==2.9.0
 pyinstaller==4.4
@@ -50,19 +53,21 @@ pyinstaller-hooks-contrib==2021.2
 pyjsparser==2.7.1
 pyparsing==2.4.7
 pypiwin32==223
-python-vlc==3.0.12118
+pytube @ git+https://github.com/pytube/pytube@f06e0710dcf5089e582487fee94f7bb0afbf7ba9
 pytz==2021.1
 pywin32==301
 pywin32-ctypes==0.2.0
 requests==2.26.0
+rfc3986==1.5.0
 six==1.16.0
+sniffio==1.2.0
 toml==0.10.2
 tqdm==4.61.2
-tube-dl==5.1.0
 tzdata==2021.1
 tzlocal==2.1
 urllib3==1.26.6
+websockets==10.1
 whichcraft==0.6.1
-yt-dlp==2021.10.22
+youtube-search-python==1.5.3
 zope.event==4.5.0
 zope.interface==5.4.0
