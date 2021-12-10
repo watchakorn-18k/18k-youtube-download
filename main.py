@@ -5,7 +5,6 @@ Config.set('graphics', 'height', '600')
 Config.set('kivy','window_icon','Assets/logo.png')
 Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
-from logging import shutdown
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -18,13 +17,12 @@ from kivy.properties import StringProperty,BooleanProperty,NumericProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.progressbar import ProgressBar
-import yt_dlp
+from pytube import YouTube
 import os
 from youtubesearchpython import VideosSearch
-from moviepy.audio.io.AudioFileClip import AudioFileClip
 import asyncio
-import time
 import shutil
+import sys
 from threading import Thread
 
 
@@ -36,16 +34,10 @@ def split_text(text):
     res = ''.join(res)
     res = re.split('\s+', res)
     res = ''.join(res)
+    res = re.split('.mp4', res)
+    res = ''.join(res)
     return res
 
-def progress_update(self,number_progress):
-    while True:
-        current = self.ids.progress_bar_status.value
-        current += number_progress
-        self.ids.progress_bar_status.value = current
-        time.sleep(0.5)
-        if current >= 100:
-            break
 
 def search_youtube(self,input_search):
     def check_data():
@@ -119,81 +111,72 @@ def start_youtube_download(self):
     elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") == self.ids.my_text_input.text.find("youtu.be/"):
         search_youtube(self,self.ids.my_text_input.text)
     elif self.ids.my_text_input.text.find("www.youtube.com/watch?v=") or self.ids.my_text_input.text.find("youtu.be/") >= 0:
-        print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
-        print(self.ids.my_text_input.text.find("youtu.be/"))
+        # print(self.ids.my_text_input.text.find("www.youtube.com/watch?v="))
+        # print(self.ids.my_text_input.text.find("youtu.be/"))
         create_dir_download()
         async def main(self):
             await download_music(self)
             await convert_mp3(self)
         asyncio.run(main(self))
 
-
+previousprogress = 0
+def on_progress(stream, chunk, bytes_remaining):
+    global previousprogress
+    total_size = stream.filesize
+    bytes_downloaded = total_size - bytes_remaining 
+    liveprogress = (int)(bytes_downloaded / total_size * 100)
+    if liveprogress > previousprogress:
+        previousprogress = liveprogress
+        progress_update.value = liveprogress
+        # print(liveprogress)
 async def download_music(self):
     try:
         self.ids.my_button_1.disabled = True
         PATH_CACHE = create_dir_cache_music()
-        Thread(target=progress_update, args=(self,0.4)).start()
         link = self.ids.my_text_input.text
         self.ids.copy_link.opacity = 0
         self.ids.title_youtube.opacity = 0
         self.ids.image_youtube.opacity = 0
         self.ids.duration_youtube.opacity = 0
-        ydl_opts = {
-            'format':'worstaudio',
-            'extractaudio':True,
-            'audioformat':'mp3',
-            'outtmpl': PATH_CACHE +u'%(title)s - 18K.mp3',    #name the file the ID of the video
-            'noplaylist':True,
-            'keepvideo': True,
-            'nocheckcertificate':True,
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '128',
-            },
-                {
-            'key': 'FFmpegMetadata'
-                }
-            ],
-        }
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            meta = ydl.extract_info(link, download=False) 
-            info_dict = ydl.extract_info(link, download=False)
-            video_title = info_dict.get('title', None)
-            video_duration = info_dict.get('duration', None)/60
-            self.process_download = "กำลังโหลด..."
-            video_title[0:30]
-            ydl.download([link])
-            
-    except :
-        pass
+        yt = YouTube(link)
+        yt.register_on_progress_callback(on_progress)
+        global progress_update
+        progress_update = self.ids.progress_bar_status
+        yt.streams.filter(progressive=True,abr='128kbps').first()
+        test = yt.streams.get_by_itag(140)
+        test.download('cache_MP3')
+    except:
+        self.ids.notice_text.text = "ดาวน์โหลดไม่สำเร็จพบข้อผิดพลาด"
+        sys.exit()
 
 async def convert_mp3(self):
     try:
-        Thread(target=progress_update, args=(self,0.5)).start()
         dir = "cache_MP3"
         for count, filename in enumerate(os.listdir(dir)):
             dst = os.path.join(dir, f"{split_text(filename)}")
             src = os.path.join(dir, filename)
             os.rename(src, dst)
-        print("succes")
         for filename in os.listdir("cache_MP3"):
             music_name = str(filename)
-        clip = AudioFileClip(f'cache_MP3\{music_name}')
-        self.process_download = "กำลังแปลงไฟล์..."
-        clip.write_audiofile(f'Download MP3\{music_name}')
-        Thread(target=progress_update, args=(self,100)).start()
-        self.process_download = "ดาวน์โหลดเสร็จแล้ว"
+            # print(music_name)
+        import subprocess
+        cmd= f'ffmpeg -i "cache_MP3\{music_name}" -y "Download MP3\{music_name} - 18k.mp3"'
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,universal_newlines=True,encoding="utf8")
+        for line in process.stdout:
+            data = line.strip("")
+            self.ids.notice_text.text = "กำลังแปลงไฟล์"
+            self.ids.test.text = "อย่าปิดโปรแกรมจนกว่าจะเสร็จ"
+            self.process_download = data[2:38]
+        self.ids.progress_bar_status.value = 100
         self.my_text = f"{music_name[0:30]} - 18k"
+        self.process_download = "ดาวน์โหลดเสร็จเรียบร้อย"
         shutil.rmtree('cache_MP3')
-        clip.close()
-
-
         self.ids.notice_text.text = "เปิดโฟลเดอร์เพลงตรง Logo 18K "
         self.ids.notice_text.font_size = 25
-    except :
-        pass
+    except:
+        self.ids.notice_text.text = "แปลงไฟล์ไม่สำเร็จพบข้อผิดพลาด"
+        sys.exit()
+        
 
 
 class gridlayout_Screen(GridLayout):
@@ -228,7 +211,7 @@ class RightClickTextInput(TextInput):
     def on_touch_down(self, touch):
         super(RightClickTextInput,self).on_touch_down(touch)
         if touch.button == 'right':
-            print("right mouse clicked")
+            # print("right mouse clicked")
             pos = touch.pos
             self._show_cut_copy_paste(
                 pos, EventLoop.window, mode='paste')

@@ -1,3 +1,6 @@
+# v 3.4
+- Change API download link youtube to pytube
+- Change package for covert mp4 to mp3 with use package ffmpeg
 # v.3.3
 - fix download slow
 # v.3.2
