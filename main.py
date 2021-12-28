@@ -130,25 +130,20 @@ def on_progress(stream, chunk, bytes_remaining):
         progress_update.value = liveprogress
         # print(liveprogress)
 async def download_music(self):
-    try:
-        self.ids.my_button_1.disabled = True
-        PATH_CACHE = create_dir_cache_music()
-        link = self.ids.my_text_input.text
-        self.ids.copy_link.opacity = 0
-        self.ids.title_youtube.opacity = 0
-        self.ids.image_youtube.opacity = 0
-        self.ids.duration_youtube.opacity = 0
-        yt = YouTube(link)
-        yt.register_on_progress_callback(on_progress)
-        global progress_update
-        progress_update = self.ids.progress_bar_status
-        yt.streams.filter(progressive=True,abr='128kbps').first()
-        test = yt.streams.get_by_itag(140)
-        test.download('cache_MP3')
-    except:
-        self.ids.notice_text.text = "ดาวน์โหลดไม่สำเร็จพบข้อผิดพลาด"
-        sys.exit()
-
+    self.ids.my_button_1.disabled = True
+    PATH_CACHE = create_dir_cache_music()
+    link = self.ids.my_text_input.text
+    self.ids.copy_link.opacity = 0
+    self.ids.title_youtube.opacity = 0
+    self.ids.image_youtube.opacity = 0
+    self.ids.duration_youtube.opacity = 0
+    yt = YouTube(link)
+    yt.register_on_progress_callback(on_progress)
+    global progress_update
+    progress_update = self.ids.progress_bar_status
+    yt.streams.filter(progressive=True,abr='128kbps').first()
+    test = yt.streams.get_by_itag(140)
+    test.download('cache_MP3')
 async def convert_mp3(self):
     try:
         dir = "cache_MP3"
@@ -161,7 +156,7 @@ async def convert_mp3(self):
             # print(music_name)
         import subprocess
         cmd= f'ffmpeg -i "cache_MP3\{music_name}" -y "Download MP3\{music_name} - 18k.mp3"'
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,universal_newlines=True,encoding="utf8")
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,universal_newlines=True,encoding="utf8",shell=True,creationflags=0x08000000)
         for line in process.stdout:
             data = line.strip("")
             self.ids.notice_text.text = "กำลังแปลงไฟล์"
