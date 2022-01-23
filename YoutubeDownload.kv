@@ -5,8 +5,9 @@ gridlayout_Screen:
 #:import hex kivy.utils.get_color_from_hex
 #:import threading threading
 #:import webbrowser webbrowser
-#:set font_text 'font/TF_PHETHAI.ttf'
-#:set font_text_mini 'font/thaisanslite_r1.ttf'
+#:import time time
+#:set font_text 'font/Laksaman.ttf'
+#:set font_text_mini 'font/Laksaman-Bold.ttf'
 #:set kanit 'font/Kanit-Light.ttf'
 
 <gridlayout_Screen>:
@@ -44,7 +45,7 @@ gridlayout_Screen:
         id: my_text_input
         text: ""
         size_hint: .1, None
-        height: 32
+        height: 50
         width: 50
         font_size:'20sp'
         multiline: False
@@ -56,10 +57,10 @@ gridlayout_Screen:
         size_hint: 0.1, None
         on_release: threading.Thread(target=root.on_button_click).start()
         font_name: font_text_mini
-        font_size: '25sp'
+        font_size: '18sp'
         height: "45dp"
-        background_color: '#e4a136'
-        background_normal: '#e4a136'
+        background_color: '#0084ff'
+        background_normal: '#0084ff'
         background_down: "Assets/button_pressed.png"
         
         canvas.before:
@@ -76,7 +77,7 @@ gridlayout_Screen:
             source: 'Assets/blank.png'
             anim_delay: 0.1
             size_hint: None,None
-            size: '140dp','300dp'
+            size: '140dp','280dp'
             pos_hint: {'x':-1, 'y':-2.4}
             opacity: 1
         Label:
@@ -84,8 +85,8 @@ gridlayout_Screen:
             text:''
             size_hint:None,None
             pos_hint: {'y': -0.40}
-            font_name: kanit
-            font_size: '15sp'
+            font_name: font_text
+            font_size: '12sp'
             text_size:self.size
             halign: 'right'
             valign:"top"
@@ -95,7 +96,7 @@ gridlayout_Screen:
             text:''
             size_hint:None,None
             pos_hint: {'y': -0.5}
-            font_name: kanit
+            font_name: font_text
             font_size: '13sp'
             text_size:self.size
             halign: 'right'
@@ -103,11 +104,11 @@ gridlayout_Screen:
             opacity: 1
     Button:
         id: copy_link
-        text:'คัดลอกลิงก์'
+        text:'ดาวน์โหลดเพลงนี้ทันที'
         font_name: font_text_mini
         size_hint: None,None
         size_hint_x: 1
-        size_hint_y: 0.6
+        size_hint_y: 0.7
         text_size:self.size
         valign:"middle"
         halign: 'center'
@@ -120,15 +121,21 @@ gridlayout_Screen:
         on_release:
             Clipboard.copy(copy_link.value)
             my_text_input.text = copy_link.value
-            notice_text.text = "คลิกดาวน์โหลด MP3"
+            copy_link.opacity = 0
+            notice_text.text = "คัดลอกลิงก์เรียบร้อย"
+            image_youtube.opacity = 0
+            title_youtube.opacity = 0
+            duration_youtube.opacity = 0
+            my_button_1.background_color = hex('#0084ff')
+            threading.Thread(target=root.on_button_click).start()
         
             
 
     Label:
         id: notice_text
-        text: 'ค้นหาเพลงหรือใส่ลิงก์ในช่องว่าง' if my_text_input.text == '' else my_text_input.text[0:25]
+        text: 'ค้นหาเพลงหรือใส่ลิงก์ในช่องว่าง' if my_text_input.text == '' else ''
         font_name: font_text_mini if my_text_input.text == '' else font_text_mini
-        font_size: '30sp' if my_text_input.text == '' else '35sp'
+        font_size: '25sp' if my_text_input.text == '' else '20sp'
         color: hex('#ffbb00') if my_text_input.text == '' else hex('#ffbb00')
     Label:
         id: label_youtube
@@ -165,21 +172,22 @@ gridlayout_Screen:
                 source: 'Assets/button_pressed.png'
         
     Label:
-        text:'Dev. Wk-18K version 3.6 https://discord.gg/AsZgC95SYu'
-        font_name: font_text_mini
-        font_size: '15sp'
+
+        text:'Dev. Wk-18K version 3.7 https://discord.gg/AsZgC95SYu'
+        font_name: kanit
+        font_size: '13sp'
         pos: '10dp','20dp'
         size_hint: 0.1, 1
 
     Button:
-        text:'ตรวจเวอร์ชันซอฟต์แวร์'
+        text:'ตรวจสอบรุ่นใหม่ของซอฟต์แวร์'
         font_name: font_text_mini
-        font_size: '15sp'
-        pos: '10dp','10dp'
+        font_size: '12sp'
+        pos: '15dp','15dp'
         size_hint: 0.1, 0.5
         background_color: '#171516'
         background_normal: '#252022'
-        on_release: webbrowser.open('https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/')
+        on_release: webbrowser.open('https://github.com/watchakorn-18k/18k-youtube-download/releases/')
 
 
 <RightClickTextInput>:

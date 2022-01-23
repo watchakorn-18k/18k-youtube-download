@@ -4,3 +4,7 @@ test.json
 oldmain.py
 dist
 build
+Download MP3/
+cache_MP3/
+yt/
+__pycache__/

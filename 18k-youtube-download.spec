@@ -4,6 +4,8 @@
 block_cipher = None
 
 
+
+
 a = Analysis(['main.py'],
              pathex=['E:\\FILE_GITHUB\\18k-youtube-download'],
              binaries=[],
@@ -35,4 +37,8 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
+<<<<<<< HEAD
                name='18k-youtube-download')
+=======
+               name='18k-youtube-download')
+>>>>>>> 2be873b295021915befa80af49ef5167adc1b850
