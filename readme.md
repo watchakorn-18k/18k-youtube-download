@@ -29,8 +29,7 @@ pip install pytube
 ## 💉 Example
 
 <p align="center">
-<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/v-3.4/IMG_SAMPLE/v3.4_2.gif"/></a>
-<a href="#" align="center"><img src="https://github.com/watchakorn-18k/Python-download-YT-MP3/raw/v-3.4/IMG_SAMPLE/v3.4_1.gif"/></a>
+<a href="#" align="center"><img width=52% src="SCREEN/1.png"/> <img width=40% src="SCREEN/2.gif"/></a>
 </p>
 
 
