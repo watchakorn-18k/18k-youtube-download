@@ -53,8 +53,12 @@ pip install pytube
 
 
 ## CHANGELOG
+<<<<<<< HEAD
 # v 3.7
 - Change UI and Update api pytube fix bug can't download music to finish
+=======
+
+>>>>>>> 2be873b295021915befa80af49ef5167adc1b850
 # v 3.6
 - Fix problem can't download mp3 from youtube
 # v 3.5
