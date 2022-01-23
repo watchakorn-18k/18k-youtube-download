@@ -56,6 +56,8 @@ pip install pytube
 
 ## CHANGELOG
 
+# v 3.6
+- Fix problem can't download mp3 from youtube
 # v 3.5
 - Fix problem can't download mp3 from youtube
 
