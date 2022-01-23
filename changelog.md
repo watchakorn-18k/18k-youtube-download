@@ -1,4 +1,5 @@
-
+# v 3.7
+- Change UI and Update api pytube fix bug can't download to finish
 # v 3.6
 - Fix problem can't download mp3 from youtube
 # v 3.5

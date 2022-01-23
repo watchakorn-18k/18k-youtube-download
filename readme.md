@@ -12,9 +12,9 @@
 ### A simple project to make gui on kivy mixed with the function of downloading music from youtube with youtube_dl package
 
 ### 📌 Requirement
-- python 3.9.7 
-- Kivy==2.0.0
-- pytube
+```
+pip install -r requirement.txt
+```
 
 ## 📌 Python 3.9
 - https://www.python.org/downloads/release/python-390/
@@ -48,14 +48,13 @@ pip install pytube
 - จากนั้นรอเพลงโหลดเสร็จ
 - เปิดโฟลเดอร์เพลงได้ที่ รูปโลโก้ 18K 
 
-## 📌 Feature version v.3.4
-- ดาวน์โหลดเพลงเร็วขึ้น
-- CallBack on progress การดาวน์โหลดจาก youtube ตรงกว่าเดิม
-- แปลงไฟล์เร็วขึ้นและแสดงผลระหว่างโปรแกรมทำงานเป็นข้อความ
+## 📌 Feature version v.3.7
+- เปลี่ยน UI และอัพเดท api pytube ใหม่ แก้บัคที่ไม่สามารถดาวน์โหลดเพลงได้
 
 
 ## CHANGELOG
-
+# v 3.7
+- Change UI and Update api pytube fix bug can't download music to finish
 # v 3.6
 - Fix problem can't download mp3 from youtube
 # v 3.5

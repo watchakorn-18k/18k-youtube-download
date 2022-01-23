@@ -1,7 +1,9 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+from kivy_deps import sdl2, glew
 
 block_cipher = None
+
+
 
 
 a = Analysis(['main.py'],
@@ -28,10 +30,11 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False , icon='logo_title.ico')
-coll = COLLECT(exe,
+coll = COLLECT(exe,Tree('E:\\FILE_GITHUB\\18k-youtube-download\\'),
                a.binaries,
                a.zipfiles,
                a.datas,
+               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
                upx_exclude=[],
