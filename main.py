@@ -15,6 +15,10 @@ from kivy.base import EventLoop
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.progressbar import ProgressBar
+from kivy.uix.dropdown import DropDown
+from kivy.uix.spinner import Spinner ,SpinnerOption
+from kivy.uix.bubble import Bubble
+
 from pytube import YouTube
 import os
 from youtubesearchpython import VideosSearch
@@ -23,7 +27,11 @@ import shutil
 import sys
 import threading
 import keyboard
+from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty, BooleanProperty, NumericProperty
+
+
+
 
 
 
@@ -53,12 +61,14 @@ def search_youtube(self, input_search):
             self.ids.duration_youtube.text = load_duration_youtube()
             self.ids.copy_link.value = load_link_youtube()
             self.ids.copy_link.opacity = 1
+            self.ids.btn_select_youtube.opacity = 1
             self.ids.title_youtube.opacity = 1
             self.ids.image_youtube.opacity = 1
             self.ids.duration_youtube.opacity = 1
         else:
             self.ids.label_youtube.text = "ไม่พบข้อมูล"
             self.ids.copy_link.opacity = 0
+            self.ids.btn_select_youtube.opacity = 0
             self.ids.title_youtube.opacity = 0
             self.ids.image_youtube.opacity = 0
             self.ids.duration_youtube.opacity = 0
@@ -112,6 +122,7 @@ def check_youtube_music(text):
 
 
 def start_youtube_download(self):
+    
     if self.ids.my_text_input.text.find("https://music.youtube.com/") == 0:
         self.ids.my_text_input.text = check_youtube_music(
             self.ids.my_text_input.text)
@@ -156,6 +167,7 @@ async def download_music(self):
     PATH_CACHE = create_dir_cache_music()
     link = self.ids.my_text_input.text
     self.ids.copy_link.opacity = 0
+    self.ids.btn_select_youtube.opacity = 0
     self.ids.title_youtube.opacity = 0
     self.ids.image_youtube.opacity = 0
     self.ids.duration_youtube.opacity = 0
@@ -165,7 +177,7 @@ async def download_music(self):
     global textDownload
     textDownload = self.ids.notice_text
     progress_update = self.ids.progress_bar_status
-    yt.streams.filter(progressive=True, abr='128kbps').first()
+    yt.streams.filter(progressive=True, abr=f'{self.Biterate}').first()
     test = yt.streams.get_by_itag(140)
     test.download('cache_MP3')
 
@@ -181,7 +193,7 @@ async def convert_mp3(self):
             music_name = str(filename)
             # print(music_name)
         import subprocess
-        cmd = f'ffmpeg -i "cache_MP3\{music_name}" -y "Download MP3\{music_name} - 18k.mp3"'
+        cmd = f'ffmpeg -i "cache_MP3\{music_name}" -y -codec:a libmp3lame -b:a {self.Biterate[:-3]} "Download MP3\{music_name} - 18k.mp3"'
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    universal_newlines=True, encoding="utf8", shell=True, creationflags=0x08000000)
         for line in process.stdout:
@@ -201,8 +213,14 @@ async def convert_mp3(self):
         self.ids.notice_text.text = "แปลงไฟล์ไม่สำเร็จพบข้อผิดพลาด"
         shutil.rmtree('cache_MP3')
         sys.exit()
-
-
+from kivy.utils import get_color_from_hex
+class SpinnerOptions(SpinnerOption):
+    def __init__(self, **kwargs):
+        super(SpinnerOptions, self).__init__(**kwargs)
+        self.background_normal = ''
+        self.background_down =  "Assets/button_pressed.png"
+        self.background_color = get_color_from_hex('#966921')
+        self.opacity = 0.99
 class gridlayout_Screen(GridLayout):
     check_input = BooleanProperty(False)
     my_text = StringProperty("")
@@ -210,11 +228,16 @@ class gridlayout_Screen(GridLayout):
     process_download = StringProperty("")
     count = 0
     process_download_value = NumericProperty(0)
+    
+
+    def spinner_clicked(self, value):
+        self.Biterate = value
 
     def on_button_click(self):
         self.ids.label_youtube.text = ' '
         self.ids.notice_text.text = 'กรุณารอสักครู่....'
         self.ids.progress_bar_status.value = 0
+        self.EnabledSelectQuality = True
         start_youtube_download(self)
 
     def on_open_dir_mp3(self):
@@ -228,21 +251,28 @@ class gridlayout_Screen(GridLayout):
         animate += Animation(opacity=1,)
         animate.start(self.ids.btn_1)
 
-
+gridlayout_Screen.Biterate = "128k"
 class RightClickTextInput(TextInput):
     def on_touch_down(self, touch):
         super(RightClickTextInput, self).on_touch_down(touch)
         if touch.button == 'right':
             # print("right mouse clicked")
             pos = touch.pos
-            self._show_cut_copy_paste(
-                pos, EventLoop.window, mode='paste')
+            if self.text == '':
+                self._show_cut_copy_paste(
+                pos, EventLoop.window)
+            else:
+                self._show_cut_copy_paste(
+                pos, EventLoop.window,mode='paste')
+
+
 
 
 class YoutubeDownloadApp(App):
     def build(self):
         self.title = 'ดาวน์โหลดเพลงจากยูทูป'
         self.title_color = 1, 0, 0, 1
+        
 
 
 YoutubeDownloadApp().run()

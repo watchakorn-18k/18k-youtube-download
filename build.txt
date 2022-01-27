@@ -48,4 +48,4 @@ coll = COLLECT(exe,Tree('E:\\FILE_GITHUB\\18k-youtube-download\\'),
 
 
 
-python -m PyInstaller 18k-youtube-download_test.spec
+python -m PyInstaller 18k-youtube-download.spec

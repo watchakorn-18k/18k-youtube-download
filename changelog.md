@@ -1,3 +1,5 @@
+# v 3.8
+- Update Dropdown Select Bitrate
 # v 3.7
 - Change UI and Update api pytube fix bug can't download to finish
 # v 3.6
