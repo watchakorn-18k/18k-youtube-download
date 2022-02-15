@@ -52,8 +52,8 @@ pip install pytube
 
 
 ## CHANGELOG
-
-
+# v 3.9
+- Update Package pytube
 # v 3.8
 - Update Dropdown Select Bitrate
 # v 3.7
