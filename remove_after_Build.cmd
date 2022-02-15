@@ -5,6 +5,7 @@ rd /s dist\18k-youtube-download\__pycache__
 rd /s dist\18k-youtube-download\cv2
 rd /s dist\18k-youtube-download\.git
 rd /s dist\18k-youtube-download\Download MP3
+rd /s dist\18k-youtube-download\SCREEN
 rd /s dist\18k-youtube-download\numpy
 rd /s dist\18k-youtube-download\enchant
 rd /s dist\18k-youtube-download\PIL
