@@ -35,7 +35,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False , icon='logo_title.ico')
+          console=True , icon='logo_title.ico')
 coll = COLLECT(exe,Tree('E:\\FILE_GITHUB\\18k-youtube-download\\'),
                a.binaries,
                a.zipfiles,

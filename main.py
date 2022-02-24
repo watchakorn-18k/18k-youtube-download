@@ -193,7 +193,7 @@ async def convert_mp3(self):
             music_name = str(filename)
             # print(music_name)
         import subprocess
-        cmd = f'ffmpeg -i "cache_MP3\{music_name}" -y -codec:a libmp3lame -b:a {self.Biterate[:-3]} "Download MP3\{music_name} - 18k.mp3"'
+        cmd = f'ffmpeg\\bin\\ffmpeg.exe -i "cache_MP3\{music_name}" -y -codec:a libmp3lame -b:a {self.Biterate[:-3]} "Download MP3\{music_name} - 18k.mp3"'
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    universal_newlines=True, encoding="utf8", shell=True, creationflags=0x08000000)
         for line in process.stdout:

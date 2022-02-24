@@ -8,3 +8,5 @@ Download MP3/
 cache_MP3/
 yt/
 __pycache__/
+ffmpeg/
+__pycache__/main.cpython-39.pyc

@@ -1,5 +1,18 @@
+import os,winshell,sys
 
-
+desktop = winshell.desktop()
+files = os.listdir(desktop)
+print()
+# exit()
+for f in files:
+    if f != "18k-youtube-download.lnk":
+        print(f)
+        winshell.CreateShortcut(
+  Path=os.path.join(desktop(), "18k-youtube-download.lnk"),
+  Target=f"{os.getcwd()}\python.exe",
+  Icon=(r"c:\python\python.exe", 0),
+  Description="Python Interpreter"
+)
 # from pytube import YouTube
 
 
