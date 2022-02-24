@@ -34,7 +34,7 @@ pip install pytube
 
 
 ## How to use
-- https://youtu.be/szN09LLOO3E
+- https://youtu.be/zph9e-SqzzA
 
 📌 วิธีลง
 - โหลดโปรแกรมที่ https://github.com/watchakorn-18k/Python-download-YT-MP3/releases/
