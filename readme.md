@@ -54,6 +54,7 @@ pip install pytube
 ## CHANGELOG
 # v 3.9.1
 - Update Add ffmpeg to DIRECTORY in build executable
+
 # v 3.9
 - Update Package pytube
 # v 3.8
