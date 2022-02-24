@@ -25,6 +25,9 @@ pip install -r requirement.txt
 pip install kivy
 pip install pytube
 ```
+## 🔨 Other
+
+<a href="https://www.gyan.dev/ffmpeg/builds/">ffmpeg for windows</a> In your project PATH then create folder "ffmpeg" then add folder "bin" from <a href="https://www.gyan.dev/ffmpeg/builds/">ffmpeg</a>  put in folder "ffmpeg"
 
 ## 💉 Example
 
