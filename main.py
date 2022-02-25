@@ -1,4 +1,4 @@
-from localization.th import *
+from localization.lang import LOCALs
 from concurrent.futures import thread
 from kivy.config import Config
 Config.set('graphics', 'resizable', 0)
@@ -19,7 +19,7 @@ from kivy.uix.progressbar import ProgressBar
 from kivy.uix.dropdown import DropDown
 from kivy.uix.spinner import Spinner ,SpinnerOption
 from kivy.uix.bubble import Bubble
-
+from kivy.uix.screenmanager import ScreenManager, Screen
 from pytube import YouTube
 import os
 from youtubesearchpython import VideosSearch
@@ -71,7 +71,7 @@ def search_youtube(self, input_search):
             self.ids.image_youtube.opacity = 1
             self.ids.duration_youtube.opacity = 1
         else:
-            self.ids.label_youtube.text = TH["not_found_data"] 
+            self.ids.label_youtube.text = self.LOCALs["not_found_data"] 
             self.ids.copy_link.opacity = 0
             self.ids.btn_select_youtube.opacity = 0
             self.ids.title_youtube.opacity = 0
@@ -92,7 +92,7 @@ def search_youtube(self, input_search):
 
     def load_duration_youtube():
         for i in dict_data["result"]:
-            duration = f'{TH["duration"]} {i["duration"]}'
+            duration = f'{self.LOCALs["duration"]} {i["duration"]}'
             return duration
 
     def load_link_youtube():
@@ -162,7 +162,7 @@ def on_progress(stream, chunk, bytes_remaining):
     if liveprogress > previousprogress:
         previousprogress = liveprogress
         progress_update.value = liveprogress
-        textDownload.text = f'{TH["downloading"]} {liveprogress}%'
+        textDownload.text = f'{self.LOCALs["downloading"]} {liveprogress}%'
         # print(liveprogress)
 
 
@@ -203,19 +203,19 @@ async def convert_mp3(self):
                                    universal_newlines=True, encoding="utf8", shell=True, creationflags=0x08000000)
         for line in process.stdout:
             data = line.strip("")
-            self.ids.notice_text.text = TH["converting"]
-            self.ids.test.text = TH["Do_not_close"]
+            self.ids.notice_text.text = self.LOCALs["converting"]
+            self.ids.test.text = self.LOCALs["Do_not_close"]
             self.process_download = data[2:38]
         self.ids.progress_bar_status.value = 100
         self.my_text = f"{music_name[0:20]} - 18k"
-        self.process_download = TH["finish_download"]
+        self.process_download = self.LOCALs["finish_download"]
         self.ids.test.text = ""
         shutil.rmtree('cache_MP3')
-        self.ids.notice_text.text = TH["Open_Dir"]
+        self.ids.notice_text.text = self.LOCALs["Open_Dir"]
         self.ids.notice_text.font_size = 25
         self.ids.my_text_input.disabled = False
     except:
-        self.ids.notice_text.text = TH["Can_not_convert_err"]
+        self.ids.notice_text.text = self.LOCALs["Can_not_convert_err"]
         shutil.rmtree('cache_MP3')
         sys.exit()
 from kivy.utils import get_color_from_hex
@@ -240,7 +240,7 @@ class gridlayout_Screen(GridLayout):
 
     def on_button_click(self):
         self.ids.label_youtube.text = ' '
-        self.ids.notice_text.text = TH["waiting"]
+        self.ids.notice_text.text = self.LOCALs["waiting"]
         self.ids.progress_bar_status.value = 0
         self.EnabledSelectQuality = True
         start_youtube_download(self)
@@ -255,6 +255,7 @@ class gridlayout_Screen(GridLayout):
         animate = Animation(opacity=0, duration=0.1)
         animate += Animation(opacity=1,)
         animate.start(self.ids.btn_1)
+        
 
 gridlayout_Screen.Biterate = "128k"
 class RightClickTextInput(TextInput):
@@ -275,7 +276,7 @@ class RightClickTextInput(TextInput):
 
 class YoutubeDownloadApp(App):
     def build(self):
-        self.title = TH["title"]
+        self.title = LOCALs["title"]
         self.title_color = 1, 0, 0, 1
         
 

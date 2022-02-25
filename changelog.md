@@ -1,4 +1,8 @@
 ## CHANGELOG
+# v 4.1
+- Update Localization 2 Language
+<br><img width="200" src="SCREEN/TH.png">
+<img width="200" src="SCREEN/EN.png">
 # v 4.0
 - Update Add Function Create Short Cut
 <br><img src="https://cdn.discordapp.com/attachments/581018943041306641/946717000955211776/unknown.png">

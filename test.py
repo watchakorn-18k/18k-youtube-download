@@ -1,3 +1,5 @@
-from localization.th import TH
+from localization.lang import Lang
 
-print(TH["title"])
+A = Lang()
+A.langeds = "EN"
+print(A.LOCAL)

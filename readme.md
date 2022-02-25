@@ -35,7 +35,7 @@ Windows 7, Windows 10 only
 ## 💉 Example
 
 <p align="center">
-<a href="#" align="center"><img width=52% src="SCREEN/1.png"/> <img width=40% src="SCREEN/3.gif"/></a>
+<a href="#" align="center"><img width=40% src="SCREEN/TH.png"/> <img width=40% src="SCREEN/EN.png"/></a>
 </p>
 
 
@@ -53,11 +53,15 @@ Windows 7, Windows 10 only
 - จากนั้นรอเพลงโหลดเสร็จ
 - เปิดโฟลเดอร์เพลงได้ที่ รูปโลโก้ 18K 
 
-## 📌 Feature version v.4.0
-- อัพเดทเพิ่มฟังก์ชั่นตรวจสอบสร้างทางลัด
+## 📌 Feature version v.4.1
+- อัพเดท 2 ภาษา ไทย อังกฤษ
 
 
 ## CHANGELOG
+# v 4.1
+- Update Localization 2 Language
+<br><img width="200" src="SCREEN/TH.png">
+<img width="200" src="SCREEN/EN.png">
 # v 4.0
 - Update Add Function Create Short Cut
 <br><img src="https://cdn.discordapp.com/attachments/581018943041306641/946717000955211776/unknown.png">

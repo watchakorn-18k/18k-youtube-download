@@ -1,0 +1,18 @@
+EN = {
+    "title":"Download Music from Youtube",
+    "find_seach":"Search/Download MP3",
+    "find_music_or_link":"Search name/Link in blank",
+    "check_version":"Check for new releases",
+    "select_quality":"Select Quality",
+    "donwload_link_now":"Download Now",
+    "finish_copy": "Link copied successfully",
+    "finish_download":"Download finished",
+    "not_found_data":"Not found data",
+    "duration":"duration",
+    "downloading":"Downloading",
+    "converting":"Converting",
+    "Do_not_close":"Do not close until it is finished",
+    "Open_Dir":"Open Music Folder at Logo 18K ",
+    "Can_not_convert_err":"File conversion failed, error found",
+    "waiting":"please wait a moment....",
+}
