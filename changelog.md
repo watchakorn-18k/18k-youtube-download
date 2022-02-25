@@ -2,6 +2,7 @@
 # v 4.0
 - Update Add Function Create Short Cut
 <br><img src="https://cdn.discordapp.com/attachments/581018943041306641/946717000955211776/unknown.png">
+- Support Windows 7 , Windows 10
 # v 3.9.1
 - Update Add ffmpeg to DIRECTORY in build executable
 
