@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 gridlayout_Screen:
 
+#:import TH localization.th.TH
 #:import Clipboard kivy.core.clipboard.Clipboard
 #:import hex kivy.utils.get_color_from_hex
 #:import threading threading
 #:import webbrowser webbrowser
 #:import time time
 #:import Factory kivy.factory.Factory
+#:import * localization.th
 #:set font_text 'font/Laksaman.ttf'
 #:set font_text_mini 'font/Laksaman-Bold.ttf'
 #:set kanit 'font/Kanit-Light.ttf'
@@ -56,7 +58,7 @@ gridlayout_Screen:
         
     Button:
         id: my_button_1
-        text:'ค้นหา/ดาวน์โหลด MP3'
+        text: TH["find_seach"]
         size_hint: 0.1, None
         on_release: threading.Thread(target=root.on_button_click).start()
         font_name: font_text_mini
@@ -109,7 +111,7 @@ gridlayout_Screen:
 
     Spinner:
         id: btn_select_youtube
-        text:'เลือกความละเอียด'
+        text: TH["select_quality"]
         font_name: font_text_mini
         text_size:self.size
         valign:"middle"
@@ -135,7 +137,7 @@ gridlayout_Screen:
         
     Button:
         id: copy_link
-        text:'ดาวน์โหลดเพลงนี้ทันที'
+        text: TH["donwload_link_now"]
         font_name: font_text_mini
         size_hint: None,None
         size_hint_x: 1
@@ -154,7 +156,7 @@ gridlayout_Screen:
             Clipboard.copy(copy_link.value)
             my_text_input.text = copy_link.value
             copy_link.opacity = 0
-            notice_text.text = "คัดลอกลิงก์เรียบร้อย"
+            notice_text.text = TH["finish_copy"]
             image_youtube.opacity = 0
             title_youtube.opacity = 0
             duration_youtube.opacity = 0
@@ -164,7 +166,7 @@ gridlayout_Screen:
 
     Label:
         id: notice_text
-        text: 'ค้นหาเพลงหรือใส่ลิงก์ในช่องว่าง' if my_text_input.text == '' else ''
+        text: TH["find_music_or_link"] if my_text_input.text == '' else ''
         font_name: font_text_mini if my_text_input.text == '' else font_text_mini
         font_size: '25sp' if my_text_input.text == '' else '20sp'
         color: hex('#ffbb00') if my_text_input.text == '' else hex('#ffbb00')
@@ -178,7 +180,7 @@ gridlayout_Screen:
         text: "" if root.process_download == '' else root.process_download
         font_name: kanit
         font_size: '20sp'
-        color: hex('#00ff00') if root.process_download == "ดาวน์โหลดเสร็จแล้ว" else hex('#ffbb00')
+        color: hex('#00ff00') if root.process_download == TH["finish_download"] else hex('#ffbb00')
     Label:
         id: test
         text: str(int(progress_bar_status.value)) + " %" if progress_bar_status.value != 0 else ""
@@ -204,14 +206,14 @@ gridlayout_Screen:
         
     Label:
 
-        text:'Dev. Wk-18K version 4.0 https://discord.gg/AsZgC95SYu'
+        text:f'Dev. Wk-18K version {TH["version"]} https://discord.gg/AsZgC95SYu'
         font_name: kanit
         font_size: '13sp'
         pos: '10dp','20dp'
         size_hint: 0.1, 1
 
     Button:
-        text:'ตรวจสอบรุ่นใหม่ๆของซอฟต์แวร์'
+        text: TH["check_version"]
         font_name: font_text_mini
         font_size: '11sp'
         pos: '15dp','15dp'
