@@ -50,11 +50,15 @@ pip install pytube
 - จากนั้นรอเพลงโหลดเสร็จ
 - เปิดโฟลเดอร์เพลงได้ที่ รูปโลโก้ 18K 
 
-## 📌 Feature version v.3.8
-- อัพเดทปุ่มเปลี่ยน Biterate
+## 📌 Feature version v.4.0
+- อัพเดทเพิ่มฟังก์ชั่นตรวจสอบสร้างทางลัด
 
 
 ## CHANGELOG
+
+# v 4.0
+- Update Add Function Create Short Cut
+<br><img src="https://cdn.discordapp.com/attachments/581018943041306641/946717000955211776/unknown.png">
 # v 3.9.1
 - Update Add ffmpeg to DIRECTORY in build executable
 
