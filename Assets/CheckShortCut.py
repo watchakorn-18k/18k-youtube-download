@@ -9,7 +9,7 @@ def AlertCreateShortCut(title, text, style):
 
 def CheckShortCut():
   if "18k-youtube-download.lnk" not in files:
-      CheckYesNo = AlertCreateShortCut('สร้างทางลัดหน้าเดสก์ท็อป', 'คุณต้องสร้างทางลัดโปรแกรมไปหน้าเดสก์ท็อปหรือไม่',4)
+      CheckYesNo = AlertCreateShortCut('สร้างทางลัด 18k youtube download ไปหน้าเดสก์ท็อป', 'คุณต้องการสร้างทางลัด 18k youtube download ไปหน้าเดสก์ท็อปหรือไม่',4)
       if CheckYesNo == 6:
         winshell.CreateShortcut(
   Path=os.path.join(winshell.desktop(), "18k-youtube-download.lnk"),
