@@ -58,8 +58,6 @@ Windows 7, Windows 10 only
 
 
 ## CHANGELOG
-
-## CHANGELOG
 # v 4.0
 - Update Add Function Create Short Cut
 <br><img src="https://cdn.discordapp.com/attachments/581018943041306641/946717000955211776/unknown.png">
