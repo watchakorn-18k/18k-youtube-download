@@ -37,5 +37,3 @@ coll = COLLECT(exe,Tree('E:\\FILE_GITHUB\\18k-youtube-download\\'),
                upx=True,
                upx_exclude=[],
                name='18k-youtube-download')
-
-               
