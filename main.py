@@ -29,6 +29,9 @@ import threading
 import keyboard
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty, BooleanProperty, NumericProperty
+from Assets.CheckShortCut import *
+
+
 
 
 
@@ -38,6 +41,7 @@ from kivy.properties import StringProperty, BooleanProperty, NumericProperty
 from kivy.core.window import Window
 Window.size = (400, 600)
 
+CheckShortCut()
 
 def split_text(text):
     import re

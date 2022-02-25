@@ -1,7 +1,7 @@
-python -m PyInstaller --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
+pyinstaller --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
 
 
-python -m PyInstaller --onefile --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
+PyInstaller --onefile --name 18k-youtube-download --noconsole --icon logo_title.ico main.py
 
 
 # pyinstaller
@@ -47,5 +47,4 @@ coll = COLLECT(exe,Tree('E:\\FILE_GITHUB\\18k-youtube-download\\'),
                name='18k-youtube-download')
 
 
-
-python -m PyInstaller 18k-youtube-download.spec
+pyinstaller 18k-youtube-download.spec

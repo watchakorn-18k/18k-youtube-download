@@ -18,5 +18,5 @@ del dist\18k-youtube-download\changelog.md
 del dist\18k-youtube-download\oldmain.py
 del dist\18k-youtube-download\test.py
 del dist\18k-youtube-download\test.json
-del dist\18k-youtube-download\requirment.txt
+del dist\18k-youtube-download\requirements.txt
 del dist\18k-youtube-download\remove_after_Build.cmd
